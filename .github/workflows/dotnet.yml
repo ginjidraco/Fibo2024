@@ -54,7 +54,7 @@ jobs:
       if: github.ref == 'refs/heads/main'
       run: |
         dotnet pack -c Release -p:PackageVersion=${{ needs.tags.outputs.new_version }}
-        dotnet nuget push ./bin/Release/Guillaume.Chervet.Fibonacci7.${{ needs.tags.outputs.new_version }}.nupkg --api-key ${{ secrets.NUGET_API_KEY }} --source https://api.nuget.org/v3/index.json
+        dotnet nuget push ./bin/Release/theo.crespo.fibo.${{ needs.tags.outputs.new_version }}.nupkg --api-key ${{ secrets.NUGET_API_KEY }} --source https://api.nuget.org/v3/index.json
     
     - run: dotnet publish ./src/Leonardo.Web/Leonardo.Web.csproj --self-contained true --output ./win-x64/fibonacci -c Release -r win-x64 /p:PublishSingleFile=true
     - name: Upload WebApp Build Artifact
@@ -90,4 +90,4 @@ jobs:
         if: github.ref == 'refs/heads/main'
         run: |
           az group create --name FibonacciGithub --location northeurope
-          az container create -g FibonacciGithub --name fibo  --dns-name-label fibo2-chervet --image ghcr.io/guillaume-chervet/fibonacci:${{ needs.tags.outputs.new_version }} --environment-variables "ASPNETCORE_URLS=http://*:8080" --ports 8080 --os-type Linux --cpu 1 --memory 1
+          az container create -g FibonacciGithub --name fibo  --dns-name-label fibo-ginjidraco --image ghcr.io/ginjidraco/fibonacci:${{ needs.tags.outputs.new_version }} --environment-variables "ASPNETCORE_URLS=http://*:8080" --ports 8080 --os-type Linux --cpu 1 --memory 1
